@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.Entities;
+using System.Data;
 
 namespace Domain.Interfaces
 {
-    internal interface IPagamentoRepository
+    public interface IPagamentoRepository
     {
+        Task<Pagamento> GetByClienteIdAsync(string commandSql, Pagamento dbTEntity, IDbTransaction dbTransaction);
+        Task<Pagamento> GetByIdAsync(string commandSql, Pagamento dbTEntity, IDbTransaction dbTransaction);
+        Task<int> AddAsync(string commandSql, Pagamento dbTEntity, IDbTransaction dbTransaction);
+        Task<int> UpdateAsync(string commandSql, Pagamento dbTEntity, IDbTransaction dbTransaction);
     }
 }

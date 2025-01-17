@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.DTOs;
+using Application.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,36 +10,42 @@ namespace API.Controllers
     [ApiController]
     public class PagamentosController : ControllerBase
     {
-        // GET: api/<PagamentosController>
+        private readonly IPagamentoService _pagamentoService;
+        public PagamentosController(IPagamentoService pagamentoService)
+        {
+            _pagamentoService = pagamentoService;
+        }
+
         [HttpGet]
-        public IEnumerable<string> Get()
+        [Route("GetByClienteIdAsync")]
+        public async Task<IActionResult> GetByClienteIdAsync(string clienteId)
         {
-            return new string[] { "value1", "value2" };
+            var data = await _pagamentoService.GetByClienteIdAsync(clienteId);
+            return Ok(data);
         }
 
-        // GET api/<PagamentosController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet]
+        [Route("GetByIdAsync")]
+        public async Task<IActionResult> GetByIdAsync(string id)
         {
-            return "value";
+            var data = await _pagamentoService.GetByIdAsync(id);
+            return Ok(data);
         }
 
-        // POST api/<PagamentosController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        [Route("AddAsync")]
+        public async Task<IActionResult> AddAsync(PagamentoDTO pagamentoDTO)
         {
+            var data = await _pagamentoService.AddAsync(pagamentoDTO);
+            return Ok(data);
         }
 
-        // PUT api/<PagamentosController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPost]
+        [Route("UpdateAsync")]
+        public async Task<IActionResult> UpdateAsync(PagamentoDTO pagamentoDTO)
         {
-        }
-
-        // DELETE api/<PagamentosController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            var data = await _pagamentoService.UpdateAsync(pagamentoDTO);
+            return Ok(data);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.DTOs;
+using Application.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,36 +10,34 @@ namespace API.Controllers
     [ApiController]
     public class ClientesController : ControllerBase
     {
-        // GET: api/<ClientesController>
+        private readonly IClienteService _clienteService;
+        public ClientesController(IClienteService clienteService)
+        {
+            _clienteService = clienteService;
+        }
+
         [HttpGet]
-        public IEnumerable<string> Get()
+        [Route("GetAll")]
+        public async Task<IActionResult> GetAll()
         {
-            return new string[] { "value1", "value2" };
+            var data = await _clienteService.GetAllAsync();
+            return Ok(data);
         }
 
-        // GET api/<ClientesController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet]
+        [Route("GetById")]
+        public async Task<IActionResult> GetById(string id)
         {
-            return "value";
+            var data = await _clienteService.GetByIdAsync(id);
+            return Ok(data);
         }
 
-        // POST api/<ClientesController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        [Route("Create")]
+        public async Task<IActionResult> Create(ClienteDTO clienteDTO)
         {
-        }
-
-        // PUT api/<ClientesController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<ClientesController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            var data = await _clienteService.AddAsync(clienteDTO);
+            return Ok(data);
         }
     }
 }
