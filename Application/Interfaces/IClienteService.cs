@@ -5,7 +5,7 @@ namespace Application.Interfaces
     public interface IClienteService
     {
         Task<IEnumerable<ClienteDTO>> GetAllAsync();
-        Task<ClienteDTO> GetByIdAsync(string id);
+        Task<ClienteDTO> GetByIdAsync(int id);
         Task<ClienteDTO> AddAsync(ClienteDTO? clienteDTO);
     }
 }

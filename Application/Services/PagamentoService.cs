@@ -24,21 +24,21 @@ namespace Domain.Services
         public async Task<PagamentoDTO> AddAsync(PagamentoDTO pagamentoDTO)
         {
             _pagamento = _mapper.Map<Pagamento>(pagamentoDTO);
-            var sqlQuery = "Insert Into Pagamentos (id, clienteId, valor, data, status) values (@id, @clienteId, @valor, @data, @status)";
+            var sqlQuery = "Insert Into Pagamentos (clienteId, valor, data, status) values (@clienteId, @valor, @data, @status)";
             var oReturn = await _pagamentoRepository.AddAsync(sqlQuery, _pagamento, _unitOfWork.BeginTransaction());
 
             _unitOfWork.Commit();
             return pagamentoDTO;
         }
 
-        public async Task<PagamentoDTO> GetByClienteIdAsync(string clienteId)
+        public async Task<IEnumerable<PagamentoDTO>> GetByClienteIdAsync(int clienteId)
         {
-            var sqlQuery = $"Select * From Pagamentos Where ClienteId='{clienteId}'";
+            var sqlQuery = $"Select * From Pagamentos Where ClienteId={clienteId}";
             var oReturn = await _pagamentoRepository.GetByClienteIdAsync(sqlQuery, _pagamento, _unitOfWork.BeginTransaction());
-            return _mapper.Map<PagamentoDTO>(oReturn);
+            return _mapper.Map<IEnumerable<PagamentoDTO>>(oReturn);
         }
 
-        public async Task<PagamentoDTO> GetByIdAsync(string id)
+        public async Task<PagamentoDTO> GetByIdAsync(int id)
         {
             var sqlQuery = $"Select * From Pagamentos Where Id='{id}'";
             var oReturn = await _pagamentoRepository.GetByClienteIdAsync(sqlQuery, _pagamento, _unitOfWork.BeginTransaction());
@@ -48,7 +48,7 @@ namespace Domain.Services
         public async Task<PagamentoDTO> UpdateAsync(PagamentoDTO pagamentoDTO)
         {
             _pagamento = _mapper.Map<Pagamento>(pagamentoDTO);
-            var sqlQuery = $"Update Pagamentos Set valor=@valor, data=@data, status=@status Where Id='{pagamentoDTO.Id}'";
+            var sqlQuery = $"Update Pagamentos Set status=@status Where Id='{pagamentoDTO.Id}'";
             var oReturn = await _pagamentoRepository.UpdateAsync(sqlQuery, _pagamento, _unitOfWork.BeginTransaction());
 
             _unitOfWork.Commit();

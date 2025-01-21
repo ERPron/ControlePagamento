@@ -26,7 +26,7 @@ namespace API.Controllers
 
         [HttpGet]
         [Route("GetById")]
-        public async Task<IActionResult> GetById(string id)
+        public async Task<IActionResult> GetById(int id)
         {
             var data = await _clienteService.GetByIdAsync(id);
             return Ok(data);

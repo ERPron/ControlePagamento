@@ -23,9 +23,9 @@ namespace Infrastructure.Repositories
         }
 
 
-        public async Task<Pagamento?> GetByClienteIdAsync(string commandSql, Pagamento dbTEntity, IDbTransaction dbTransation)
+        public async Task<IEnumerable<Pagamento?>> GetByClienteIdAsync(string commandSql, Pagamento dbTEntity, IDbTransaction dbTransation)
         {
-            return await _appSession.Connection.QuerySingleOrDefaultAsync<Pagamento>(commandSql, dbTEntity, dbTransation, null, null);
+            return await _appSession.Connection.QueryAsync<Pagamento>(commandSql, dbTEntity, dbTransation, null, null);
         }
 
         public async Task<Pagamento?> GetByIdAsync(string commandSql, Pagamento dbTEntity, IDbTransaction dbTransaction)

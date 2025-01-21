@@ -1,0 +1,32 @@
+.header {
+    background-color: #363653;
+    text-align: center;
+}
+
+.menu ul {
+    display: flex;
+    column-gap: 30px;
+    align-items: center;
+    list-style-type: none;
+
+    & li {
+        list-style-type: none;
+    }
+}
+
+.navbar {
+    margin: 0px;
+    padding: 0px;
+    background-color: #363653;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+}
+
+img {
+    background-color: transparent;
+    height: 60px;
+    width: 60px;
+}

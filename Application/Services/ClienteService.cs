@@ -25,7 +25,7 @@ namespace Domain.Services
         public async Task<ClienteDTO> AddAsync(ClienteDTO cliente)
         {
             _cliente = _mapper.Map<Cliente>(cliente);
-            var sqlQuery = "Insert Into Clientes (id, nome, email) values (@id, @nome, @email)";
+            var sqlQuery = "Insert Into Clientes (nome, email) values (@nome, @email)";
             var oReturn = await _repository.AddAsync(sqlQuery, _cliente, _unitOfWork.BeginTransaction());
 
             _unitOfWork.Commit();
@@ -39,7 +39,7 @@ namespace Domain.Services
             return _mapper.Map<IEnumerable<ClienteDTO>>(oReturn);
         }
 
-        public async Task<ClienteDTO> GetByIdAsync(string id)
+        public async Task<ClienteDTO> GetByIdAsync(int id)
         {
             var sqlQuery = $"Select * From Clientes Where id='{id}'";
             var oReturn = await _repository.GetByIdAsync(sqlQuery, _cliente, _unitOfWork.BeginTransaction());

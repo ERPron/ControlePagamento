@@ -20,7 +20,8 @@ namespace API.Controllers
         [Route("GetByClienteIdAsync")]
         public async Task<IActionResult> GetByClienteIdAsync(string clienteId)
         {
-            var data = await _pagamentoService.GetByClienteIdAsync(clienteId);
+
+            var data = await _pagamentoService.GetByClienteIdAsync(int.Parse(clienteId));
             return Ok(data);
         }
 
@@ -28,7 +29,7 @@ namespace API.Controllers
         [Route("GetByIdAsync")]
         public async Task<IActionResult> GetByIdAsync(string id)
         {
-            var data = await _pagamentoService.GetByIdAsync(id);
+            var data = await _pagamentoService.GetByIdAsync(int.Parse(id));
             return Ok(data);
         }
 

@@ -9,8 +9,8 @@ namespace Domain.Entities
 {
     public class Pagamento
     {
-        public Guid Id { get; set; }
-        public Guid ClienteId { get; set; }
+        public int Id { get; set; }
+        public int ClienteId { get; set; }
 
         public decimal Valor { get; set; }
         public DateTime Data { get; set; }
