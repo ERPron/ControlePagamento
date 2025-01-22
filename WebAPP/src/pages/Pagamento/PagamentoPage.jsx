@@ -33,7 +33,7 @@ export default function PagamentoPage() {
             Data: inputData.current.value,
             Valor: inputValor.current.value,
             Status: inputStatus.current.value
-        })   
+        })
     }
 
     useEffect(() => { getPagamentoByIdClientes(1) }, [])
@@ -61,13 +61,14 @@ export default function PagamentoPage() {
                     <div key={pag.id} className="cardl">
                         <div>
                             <p>Id: {pag.id}</p>
-                            <p>Id Cliente: {pag.idcliente}</p>
+                            <p>Id Cliente: {pag.clienteId}</p>
                             <p>Data: {pag.data}</p>
                             <p>Valor R$: {pag.valor}</p>
-                            <p>Status: {pag.status}</p>
+                            <p>Status: {
+                                String(pag.status) === '0' ? 'Pendente' :
+                                String(pag.status) === '1' ? 'Pago' : 'Cancelado'}</p>
                         </div>
                         <div>
-                            {/* <button><img src={Trash} /></button> */}
                             <button><img src={Editar} /></button>
                         </div>
                     </div>
